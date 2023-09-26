@@ -1,0 +1,156 @@
+* {
+  margin: 0;
+}
+
+.tool-icon {
+  color: green;
+  font-size: 26px;
+  cursor: pointer
+}
+
+.navv {
+  background-color: darkslateblue;
+  line-height: 50px;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  margin-bottom: 20px;
+  z-index: 2;
+}
+
+.navv ul {
+  background-color: darkslateblue;
+  /* padding: 0; */
+  margin: 0px 0px;
+  float: right;
+
+
+}
+
+.navv ul li,
+.navv li a {
+  display: inline;
+  /* margin: 0; */
+  color: aliceblue;
+  padding: 10px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: rgb(124, 22, 218);
+  }
+}
+
+
+.add-product {
+  /* float: right; */
+  /* display: inline; */
+  justify-content: center;
+  width: 700px;
+  /* min-width: 10%; */
+  padding: 30px;
+  margin: 20px;
+  border: 1px solid rgb(66, 65, 65);
+  border-radius: 6px;
+  min-width: 600px;
+  /* width: 700px;  */
+  /* z-index: -2; */
+}
+
+.menu {
+  margin-top: 50px;
+  /* z-index: 3; */
+  position: fixed;
+  padding: 0px;
+  width: 230px;
+  height: 100vh;
+  background-color: rgb(228 227 227);
+  border-right: 2px solid rgb(75, 74, 74);
+}
+
+.menu a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.menu li,
+menu li a {
+  display: block;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: black;
+  text-decoration: none;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgb(180, 179, 179);
+    ;
+
+  }
+}
+
+.dashboard {
+  position: inherit;
+  display: flex;
+}
+
+.dashboard-content {
+  margin-top: 30px;
+  margin-left: 230px;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  /* border: 2px solid gray; */
+}
+
+
+.p_card {
+  width: 260px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.p_card img {
+  cursor: pointer;
+}
+
+.product {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-login {
+
+  height: 100vh;
+  padding: 40px;
+  background: url('../public/admin.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login {
+  color: #fff;
+  background: rgb(59 101 139 / 79%);
+  position: absolute;
+  border-radius: 20px 0px 20px 0px;
+  /* top: 30px;
+  right: 28%; */
+  border: 1px solid black;
+  min-width: 500px;
+  width: 600px;
+  padding: 20px;
+  height: auto;
+  margin-top: 30px;
+}
+
+._404page {
+  width: 100vw;
+  height: 100vh;
+  background: url('../public/pagenot2.jpg');
+  background-position: center;
+  background-size: cover;
+}
