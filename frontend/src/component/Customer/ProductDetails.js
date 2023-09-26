@@ -29,11 +29,11 @@ const ProductDetails = (props) => {
         <div>
             <h1>Product Details</h1>
             <div>
-                <div class="container">
-                    <div class="card" style={{ display: "flex", flexDirection: "row" }}>
+                <div className="container">
+                    <div className="card" style={{ display: "flex", flexDirection: "row" }}>
                         <div className='p-2'>
                             <h1>
-                            <img src={`./product_images/${product.image}`} alt='Product' height={300} width={300} />
+                            <img src={`../product_images/${product.image}`} alt='Product' height={300} width={300} />
                                 {/* <img src={require(`./product_images/${product.image}`)}
                                     alt='Product' height={300} width={300} /> */}
                             </h1>

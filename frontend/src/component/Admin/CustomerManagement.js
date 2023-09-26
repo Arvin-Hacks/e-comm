@@ -6,7 +6,7 @@ const CustomerManagement = () => {
             <h1>CustomerManagement</h1>
             <div>
                 <div>
-                    <table class="table table-striped table-hover">
+                    <table className="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -17,7 +17,7 @@ const CustomerManagement = () => {
                                 <th scope="col">Operation</th>
                             </tr>
                         </thead>
-                        <tbody class="table-group-divider">
+                        <tbody className="table-group-divider">
                         <tr>
                                 <th scope="row">1</th>
                                 <td>Mark</td>

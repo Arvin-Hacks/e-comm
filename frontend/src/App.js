@@ -15,6 +15,7 @@ import UserSignup from './component/Customer/UserSignup';
 import UserLogin from './component/Customer/Userlogin';
 import UserPrivate from './component/Customer/UserPrivate';
 import UpdateProduct from './component/Admin/Updateproduct';
+import Cart from './component/Customer/Cart';
 function App() {
 
   return (
@@ -22,7 +23,6 @@ function App() {
       <BrowserRouter>
         <Nav />
         <Routes >
-
           <Route path='/adminlogin' element={<AdminLogin />}></Route>
           <Route path='/usersignup' element={<UserSignup />}></Route>
           <Route path='/userlogin' element={<UserLogin />}></Route>
@@ -32,7 +32,7 @@ function App() {
             <Route path='/' element={<Product />}></Route>
             <Route path='/product' element={<h1>Login page</h1>}></Route>
             <Route path='/productdetail/:id' element={<ProductDetails />}></Route>
-            <Route path='/cart' element={<h1>Cart page</h1>}></Route>
+            <Route path='/cart' element={<Cart />}></Route>
           </Route>
           <Route element={<Privatecomponent />}>
               <Route path='/dashboard' element={<Dashboard />} >

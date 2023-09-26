@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import {additem,removeitem} from '../../redux/cartSlice'
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/esm/Button';
 import { useNavigate } from 'react-router-dom';
-// const path='../../utils/product_images/'
-// require('../utils/product_images')
-// const p_img='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80'
-
 const Product = () => {
+    let user= JSON.parse(localStorage.getItem('user'))
+    let u_id=user._id
+
+    const [data,setData]=useState([])
+    const cartItems= useSelector(state=>state.cart.items)
+    const dispatch=useDispatch()
     const Navigate=useNavigate()
+
     useEffect(()=>{
         getproduct()
     },[])
-    const [data,setData]=useState([])
+    // Get All Products
     const getproduct=async()=>{
         let data= await fetch('http://localhost:5000/')
         data= await data.json()
@@ -20,9 +25,19 @@ const Product = () => {
             setData(data.result)
         }
     }
-    const addtocart=()=>{
+    // Add Product to cart
+    const addtocart=async(p_id)=>{
+        let  result= await fetch(`http://localhost:5000/addtocart/${p_id}/${u_id}`)
+        result= await result.json()
+        if(result.success){
+            alert('product added to cart')
+            // console.log('details',result.result.product_id)
+            dispatch(additem(result.result.product_id))
+        }else{
+            alert('error')
+        }
     }
-
+    // Get Product Details
     const productdetail=(id)=>{
         // console.log('product ..',item)
         Navigate(`/productdetail/${id}`)
@@ -33,7 +48,7 @@ const Product = () => {
             <h1 className='text-center'>Products</h1>
             <div className='product'>
                 {data.length>0 ?data.map((item)=>
-                <div className='p_card'>
+                <div className='p_card' key={item._id}>
                 <Card style={{padding:'20px',height: "430px"}} >
                     {/* <img alt="cover_page" src={require(`./books/${items.cover_page}`)} */}
                     <Card.Img variant="top" src={`./product_images/${item.image}`} width={277}height={ 193} onClick={()=>productdetail(item._id)} />

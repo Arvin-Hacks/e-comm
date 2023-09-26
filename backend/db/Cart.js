@@ -1,9 +1,9 @@
 const mongoose=require('mongoose')
 require('./config')
 const CartSchema= new mongoose.Schema({
-    product_id:String,
+    product_id:mongoose.Schema.Types.ObjectId,
     user_id:String,
-    product_id:String,
+    quantity:Number
 },{
     timestamps:true
 })

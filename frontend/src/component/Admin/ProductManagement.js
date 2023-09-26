@@ -9,7 +9,7 @@ const ProductManagement = () => {
     useEffect(() => {
         getproduct()
     }, [])
-    
+    // get all product to show in table
     const getproduct = async () => {
         let result = await fetch('http://localhost:5000/')
         result = await result.json()
@@ -18,6 +18,8 @@ const ProductManagement = () => {
             setData(result.result)
         }
     }
+
+    // Update a specific product based on id
     const update=(id)=>{
         Navigate(`/dashboard/updateproduct/${id}`)
     }
@@ -25,8 +27,8 @@ const ProductManagement = () => {
         <div className='container'>
             <h1>Product Management</h1>
             <div>
-                <div>
-                    <table class="table table-striped table-hover">
+                <div >
+                    <table className="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -37,10 +39,10 @@ const ProductManagement = () => {
                                 <th scope="col">Operation</th>
                             </tr>
                         </thead>
-                        <tbody class="table-group-divider" >
-                            {data.length > 0 ? data.map((item) => 
-                                <tr>
-                                    <th scope="row">1</th>
+                        <tbody className="table-group-divider" >
+                            {data.length > 0 ? data.map((item,index) => 
+                                <tr key={index+1}>
+                                    <th scope="row">{index+1}</th>
                                     <td>{item.title}</td>
                                     <td>{item.category}</td>
                                     <td>{item.price}</td>
@@ -53,7 +55,7 @@ const ProductManagement = () => {
                                 </tr>
                             )
                                 :
-                                <tr>
+                                <tr key='no data'>
                                     <th scope="row">1</th>
                                     <td>Mark</td>
                                     <td>Otto</td>
