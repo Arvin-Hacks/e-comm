@@ -1,5 +1,5 @@
 const mongoose=require('mongoose')
-require('./config')
+require('../db/config')
 const ProductSchema= new mongoose.Schema({
     title:String,
     category:String,

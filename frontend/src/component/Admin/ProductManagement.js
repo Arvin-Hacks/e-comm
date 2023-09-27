@@ -1,7 +1,6 @@
-import { Button } from 'bootstrap'
 import React, { useEffect, useState } from 'react'
 import { BiEdit } from 'react-icons/bi'
-import { BsDashSquare, BsTrash3 } from 'react-icons/bs'
+import {BsTrash3 } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 const ProductManagement = () => {
     const [data, setData] = useState([])

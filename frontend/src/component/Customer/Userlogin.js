@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const UserLogin = () => {
     const [user, setUser] = useState({
@@ -85,8 +85,12 @@ const UserLogin = () => {
                     </Form.Group>
 
                     <Form.Group as={Row} className="mb-3">
-                        <Col sm={{ span: 10, offset: 2 }}>
+                        <Col sm={{ span: 6, offset: 2 }}>
                             <Button onClick={login}>Sign in</Button>
+                            
+                        </Col>
+                        <Col>
+                        <Link to='/adminlogin' style={{color:"white"}}>login as Admin </Link>
                         </Col>
                     </Form.Group>
                 </Form>

@@ -1,5 +1,6 @@
 const mongoose=require('mongoose')
-require('./config')
+require('../db/config')
+
 const CartSchema= new mongoose.Schema({
     product_id:mongoose.Schema.Types.ObjectId,
     user_id:String,

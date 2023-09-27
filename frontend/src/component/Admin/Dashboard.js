@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import AdminMenu from './AdminMenu'
-import Addproduct from './Addproduct'
 
 const Dashboard = () => {
     const Navigate = useNavigate()

@@ -1,27 +1,39 @@
-import { useEffect, useState } from 'react'
-const { createSlice, nanoid } = require('@reduxjs/toolkit')
+// import { useEffect, useState } from 'react'
+const { createSlice } = require('@reduxjs/toolkit')
 
-
-// const [cartdata,setCartdata]=useState([])
 
 // let user = JSON.parse(localStorage.getItem('user'))
-// let u_id = user._id
-// useEffect(() => {
-//     getcartproduct()
-// })
+// let u_id = user ? user._id : null
 
 
 // const getcartproduct = async () => {
-//     let data = await fetch(`http://localhost:5000/getcartproduct/${u_id}`)
-//     data = await data.json()
-//     if (data.result.length > 0) {
-//         setCartdata(data.result)
-//         console.log('cart store data', data.result)
-//     } else {
-//         console.log(data.result)
-
+//     let a = []
+//     console.log('a',a)
+//     if (u_id) {
+//         // let cart = []
+//         let data = await fetch(`http://localhost:5000/getcartproduct/${u_id}`)
+//         data = await data.json()
+//         if (data.result.length > 0) {
+//             a = data.result
+//             console.log('cart', data.result)
+//         }
 //     }
+//     console.log('return cart', a)
+//     return a
+//     // console.log(data.result)
+
 // }
+// let a
+// try {
+//     let b =getcartproduct().then(r=>{
+//         b=r
+//     })
+//     a=b
+// } catch (error) {
+    
+// }
+// console.log('test',a)
+// cart= getcartproduct()
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
@@ -29,7 +41,7 @@ const cartSlice = createSlice({
     },
     reducers: {
         additem: (state, action) => {
-            state.items=action.payload
+            state.items = action.payload
         },
         removeitem: (state, action) => {
             state.items = state.items.filter((item) => item.id !== action.payload.id)

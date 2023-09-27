@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router,Route, Routes, useLocation } from 'react-router-dom'
 import Nav from './component/Customer/Nav';
 import Dashboard from './component/Admin/Dashboard';
 import Addproduct from './component/Admin/Addproduct';
@@ -17,10 +17,11 @@ import UserPrivate from './component/Customer/UserPrivate';
 import UpdateProduct from './component/Admin/Updateproduct';
 import Cart from './component/Customer/Cart';
 function App() {
+  // const location=useLocation()
 
   return (
     <div>
-      <BrowserRouter>
+      <Router>
         <Nav />
         <Routes >
           <Route path='/adminlogin' element={<AdminLogin />}></Route>
@@ -32,7 +33,7 @@ function App() {
             <Route path='/' element={<Product />}></Route>
             <Route path='/product' element={<h1>Login page</h1>}></Route>
             <Route path='/productdetail/:id' element={<ProductDetails />}></Route>
-            <Route path='/cart' element={<Cart />}></Route>
+            <Route  path='/cart' element={<Cart />} ></Route>
           </Route>
           <Route element={<Privatecomponent />}>
               <Route path='/dashboard' element={<Dashboard />} >
@@ -46,7 +47,7 @@ function App() {
             </Route>
         </Routes>
 
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

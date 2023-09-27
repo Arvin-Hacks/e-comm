@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Customer/product.css'
 import Button from 'react-bootstrap/esm/Button';
-import Image from 'react-bootstrap/esm/Image';
 import { useParams } from 'react-router-dom';
 
 const ProductDetails = (props) => {

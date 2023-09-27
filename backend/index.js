@@ -1,12 +1,14 @@
 const express = require('express')
 const app = express()
+// const apps=express()
+
 const cors = require('cors')
 const multer = require('multer')
 
-const Product = require('./db/Product')
-const Admin = require('./db/Admin')
-const User = require('./db/user')
-const Cart = require('./db/Cart')
+const Product = require('./models/Product')
+const Admin = require('./models/Admin')
+const User = require('./models/user')
+const Cart = require('./models/Cart')
 const Product_path = '../frontend/public/product_images'
 app.use(express.json(), cors())
 
@@ -48,6 +50,9 @@ app.post('/adminlogin', async (req, resp) => {
         resp.send({ result: 'Admin Not Found', success: false })
     }
 })
+
+// app.use('/userlogin',require("./route/user"))
+// user routes
 app.post('/userlogin', async (req, resp) => {
     console.log('body', req.body)
     let result = await User.find({ $and: [{ email: req.body.email }, { password: req.body.password }] }).select('name email _id')
@@ -67,6 +72,10 @@ app.post('/usersignup', async (req, resp) => {
         resp.send({ result: 'signup error', success: false })
     }
 })
+
+
+
+
 
 // Product APIs
 app.post('/upload', fileupload.single('product'), async (req, resp) => {
@@ -171,4 +180,7 @@ app.listen(5000, () => {
     console.log("Server is running on port 5000")
 })
 
+// app.listen(5000, () => {
+//     console.log("Server is running on port 5000")
+// })
 

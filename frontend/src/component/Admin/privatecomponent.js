@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Navigate, Outlet } from 'react-router-dom'
+import {Navigate, Outlet } from 'react-router-dom'
 
 const Privatecomponent = () => {
     let auth= JSON.parse(localStorage.getItem('admin'))

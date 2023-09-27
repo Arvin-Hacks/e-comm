@@ -1,6 +1,6 @@
 const mongoose=require('mongoose')
-require('./config')
-const AdminSchema= new mongoose.Schema({
+require('../db/config')
+const UserSchema= new mongoose.Schema({
     name:String,
     email:String,
     password:String
@@ -8,4 +8,4 @@ const AdminSchema= new mongoose.Schema({
     timestamps:true
 })
 
-module.exports= mongoose.model('admins',AdminSchema)
+module.exports= mongoose.model('users',UserSchema)
