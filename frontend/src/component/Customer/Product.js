@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/esm/Button';
 import {IoBagCheckOutline}  from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom';
+import ProductTools from './ProductTools';
 const Product = () => {
     let user = JSON.parse(localStorage.getItem('user'))
     let u_id = user._id
@@ -58,10 +59,10 @@ const Product = () => {
     }
 
     return (
-        <div style={{marginTop:"50px"}}>
-            <h1 className='text-center'>Products</h1>
-            <div className='product-tools'>
-
+        <div style={{marginTop:"60px"}}>
+            {/* <h1 className='text-center'>Products</h1> */}
+            <div className='product-tools' >
+                <ProductTools />
             </div>
             <div className='product'>
                 {data.length > 0 ? data.map((item) =>

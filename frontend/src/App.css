@@ -130,6 +130,13 @@ menu li a {
   padding: 20px;
   flex-wrap: wrap;
 }
+.product-tools{
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 20px;
+  padding: 10px;
+  /* border: 1px solid black; */
+}
 
 .admin-login {
 
