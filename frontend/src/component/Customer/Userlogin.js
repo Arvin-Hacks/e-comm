@@ -10,13 +10,13 @@ const UserLogin = () => {
         email: '',
         password: ''
     })
-    const [err, setErr] = useState(user ? false : true)
-    const Navigate=useNavigate()
+    const [err, setErr] = useState(false)
+    const Navigate = useNavigate()
 
     const login = async () => {
         if (user.email && user.password) {
-            console.log('login data', user)
-            let result = await fetch('http://localhost:5000/userlogin', {
+            // console.log('login data', user)
+            let result = await fetch('http://localhost:5000/user/userlogin', {
                 method: "post",
                 body: JSON.stringify(user),
                 headers: {
@@ -24,19 +24,24 @@ const UserLogin = () => {
                 }
             })
             result = await result.json()
+            // console.log('resulvjhjjt', result.result)
+
             if (result.success) {
                 console.log('result', result.result)
-                localStorage.setItem('user',JSON.stringify(result.result))
+                localStorage.setItem('user', JSON.stringify(result.result))
                 Navigate('/')
             }
-            else { 
-                console.log('result', result.result)
+            else {
+                alert('Please enter valid details')
+                // console.log('result', result.result)
                 setErr(true)
-             }
+                setTimeout(() => {setErr(false)}, 3000);
+            }
             // setErr(false)
         } else {
             setErr(true)
             console.log('error')
+            setTimeout(() => {setErr(false)}, 3000);
         }
 
     }
@@ -87,10 +92,10 @@ const UserLogin = () => {
                     <Form.Group as={Row} className="mb-3">
                         <Col sm={{ span: 6, offset: 2 }}>
                             <Button onClick={login}>Sign in</Button>
-                            
+
                         </Col>
                         <Col>
-                        <Link to='/adminlogin' style={{color:"white"}}>login as Admin </Link>
+                            <Link to='/adminlogin' style={{ color: "white" }}>login as Admin </Link>
                         </Col>
                     </Form.Group>
                 </Form>

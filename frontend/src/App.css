@@ -1,11 +1,22 @@
 * {
   margin: 0;
 }
-
+.logo{
+  height: 75px;
+  width: 70px;
+  position: absolute;
+  left: 20px;
+  z-index: 3;
+}
 .tool-icon {
   color: green;
   font-size: 26px;
-  cursor: pointer
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover{
+    transform: scale(1.1);
+
+  }
 }
 
 .navv {
@@ -31,6 +42,7 @@
 
 .navv ul li,
 .navv li a {
+  height: 50px;
   display: inline;
   /* margin: 0; */
   color: aliceblue;
@@ -103,7 +115,24 @@ menu li a {
   height: 100%;
   /* border: 2px solid gray; */
 }
+.book-state {
+  display: flex;
+  flex-direction: row;
+  /* padding: 15px; */
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
 
+}
+
+.card-1 {
+  background-color: #483d8b96;
+  margin: 16px;
+  padding: 40px;
+  width: 240px;
+  height: 160px;
+  color: #ffffff;
+  cursor:default;
+}
 
 .p_card {
   width: 260px;
@@ -205,7 +234,7 @@ menu li a {
 }
 
 .btn-cart2 {
-  background-color:#8175c9;
+  background-color:#473e7a;
   border-radius: 2px;
   position: absolute;
   width: 150px;
@@ -307,4 +336,40 @@ menu li a {
 }
 .sumary-value{
   float: right;
+}
+.container{
+  display: flex;
+  list-style: none;
+  justify-content: center;
+
+}
+.page{
+  background-color: #0073b2cf;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  width: 50px;
+  height: 43px;
+}
+.previous{
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.next{
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+  width: 82px
+}
+.active{
+	border: 2px solid #000;
+    font-weight: bold;
 }

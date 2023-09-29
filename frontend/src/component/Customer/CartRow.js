@@ -3,7 +3,6 @@ import { FaTrash } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
 const CartRow = (props) => {
-    const [childData, setChilddtat] = useState(true)
 
     let user = JSON.parse(localStorage.getItem('user'))
     let u_id = user._id
@@ -14,8 +13,8 @@ const CartRow = (props) => {
     let [qty, setQty] = useState(cart.quantity)
 
     // Remove  cart product 
-    const deletecartproduct = async (p_id) => {
-        let data = await fetch(`http://localhost:5000/deletecart/${p_id}/${u_id}`, { method: 'delete' })
+    const deletecartproduct = async () => {
+        let data = await fetch(`http://localhost:5000/cart/deletecart/${cart._id}`, { method: 'delete' })
         data = await data.json()
         if (data.success) {
             alert('Product removed...')
@@ -25,13 +24,10 @@ const CartRow = (props) => {
             console.log(data.result)
         }
     }
-    const manageqty = () => {
-        // setQty(e.target.value)
-        console.log('Quantity', qty)
-    }
+    
     const handleqty = async () => {
         if (qty >= 1) {
-            let data = await fetch(`http://localhost:5000/updateqty/${cart._id}/${qty}`)
+            let data = await fetch(`http://localhost:5000/cart/updateqty/${cart._id}/${qty}`)
             data = await data.json()
             console.log('Update qty', data)
             props.onChildchange()
@@ -74,7 +70,7 @@ const CartRow = (props) => {
                 </td>
                 <td> 
                     <FaTrash className='tool-icon'
-                        onClick={() => deletecartproduct(cart.product_id)} style={{ color: 'red' }}></FaTrash>
+                        onClick={deletecartproduct} style={{ color: 'red' }}></FaTrash>
                 </td>
             </tr>
         </>

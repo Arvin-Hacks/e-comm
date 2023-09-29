@@ -20,8 +20,9 @@ const Nav = () => {
 
   return (
     <div >
-
       <nav className='navv'>
+      <img src={'./logo2.png'} alt='E-Comm' className='logo'/> 
+        
         <ul>
           {
             auth || admin_auth ? <>

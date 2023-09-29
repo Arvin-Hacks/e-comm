@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { additem } from '../../redux/cartSlice'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import CartRow from './CartRow';
 
 const Cart = () => {
 
     let user = JSON.parse(localStorage.getItem('user'))
-    let u_id = user._id
-    const Navigate = useNavigate()
-
-    const cartItems = useSelector(state => state.cart.items)
+    let u_id = user ? user._id :''
     const dispatch = useDispatch()
     useEffect(() => {
         getcartproduct()
@@ -23,7 +20,7 @@ const Cart = () => {
 
     // get Cart products
     const getcartproduct = async () => {
-        let data = await fetch(`http://localhost:5000/getcartproduct/${u_id}`)
+        let data = await fetch(`http://localhost:5000/cart/getcartproducts/${u_id}`)
         data = await data.json()
         if (data.result.length > 0) {
             setData(data.result)

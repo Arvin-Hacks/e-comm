@@ -1,16 +1,14 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import Dropdown from 'react-bootstrap/Dropdown';
-require('./assets/component.css')
-const ProductTools = () => {
+const ProductTools = (props) => {
+    console.log('props tools',props)
     return (
         <>
             <Form>
-                <Row className="align-items-right" style={{float:"right"}}>
+                <Row className="align-items-right" >
                     <Col xs="auto">
                         <Form.Select aria-label="Default select example" >
                             <option style={{ backgroundColor: "#8175c9" }}>Select Category</option>

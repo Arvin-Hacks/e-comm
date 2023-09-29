@@ -10,7 +10,7 @@ const ProductManagement = () => {
     }, [])
     // get all product to show in table
     const getproduct = async () => {
-        let result = await fetch('http://localhost:5000/')
+        let result = await fetch('http://localhost:5000/product/getproducts')
         result = await result.json()
         if (result.result.length > 0) {
             console.log('manage',result.result)
@@ -23,7 +23,7 @@ const ProductManagement = () => {
         Navigate(`/dashboard/updateproduct/${id}`)
     }
     return (
-        <div className='container'>
+        <div className=''>
             <h1>Product Management</h1>
             <div>
                 <div >
@@ -48,7 +48,7 @@ const ProductManagement = () => {
                                     <td>{item.quantity}</td>
                                     <td>
                                         <BiEdit className='tool-icon' onClick={()=>update(item._id)} ></BiEdit> &nbsp;
-                                        <BsTrash3 className='tool-icon' ></BsTrash3> &nbsp;
+                                        <BsTrash3 className='tool-icon' color='red'></BsTrash3> &nbsp;
                                         {/* <LiaEdit></LiaEdit> */}
                                     </td>
                                 </tr>

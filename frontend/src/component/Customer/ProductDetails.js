@@ -1,27 +1,42 @@
 import React, { useEffect, useState } from 'react'
+import {IoBagCheckOutline}  from 'react-icons/io5'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Customer/product.css'
-import Button from 'react-bootstrap/esm/Button';
 import { useParams } from 'react-router-dom';
 
 const ProductDetails = (props) => {
+
+    let user = JSON.parse(localStorage.getItem('user'))
+    let u_id = user._id
+
     const param=useParams()
     const [product,setProduct]=useState([])
+    const [CartId,setCartid]=useState([])
     console.log('props',param.id)
     useEffect(()=>{
         getproductdata()
+        getCartId()
     },[])
 
     const getproductdata=async()=>{
-        let data= await fetch(`http://localhost:5000/getproductdetails/${param.id}`)
+        let data= await fetch(`http://localhost:5000/product/getproductdetail/${param.id}`)
         data= await data.json()
-
         if(data.success){
             setProduct(data.result)
             console.warn('data',data.result)
         }else{
             console.warn('data',data.result)
-
+        }
+    }
+    const getCartId = async () => {
+        let result = await fetch(`http://localhost:5000/cart/getcartproducts/${u_id}`)
+        result = await result.json()
+        if (result.success) {
+            // dispatch(additem(result.result))
+            setCartid(result.result.map((item) => item.product_id))
+            // console.warn("test:", result.result)
+            // getproductdata()
         }
     }
     return (
@@ -47,7 +62,11 @@ const ProductDetails = (props) => {
                                 <Button variant='danger'>RED</Button>
                             </p>
                             <p>______________________________</p> */}
-                            <Button>Add to Cart</Button>
+                            {CartId.includes(product._id) ?
+                                    <button className='btn-cart2' onClick={()=>Navigate('/cart')}><IoBagCheckOutline size={20}/> CHECKOUT</button>
+                                    :
+                                    <button onClick={() => addtocart(product._id)} className='btn-cart1'>ADD TO CART</button>
+                            }
                         </div>
                     </div>
                 </div>

@@ -2,12 +2,12 @@ const express = require('express')
 
 const route = express.Router()
 
-const {
-    Userlogin
-} = require("../controlers/user")
+const {Userlogin,Usersignup,UserList} = require("../controlers/user")
 
 
-route.post('/ulogin', Userlogin
-)
+route.post('/userlogin', Userlogin)
+route.post('/usersignup',Usersignup)
+route.get('/getallusers',UserList)
 
 
+module.exports= route;

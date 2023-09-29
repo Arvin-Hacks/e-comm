@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router,Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router,Route, Routes} from 'react-router-dom'
 import Nav from './component/Customer/Nav';
 import Dashboard from './component/Admin/Dashboard';
 import Addproduct from './component/Admin/Addproduct';
@@ -17,7 +17,7 @@ import UserPrivate from './component/Customer/UserPrivate';
 import UpdateProduct from './component/Admin/Updateproduct';
 import Cart from './component/Customer/Cart';
 function App() {
-  // const location=useLocation()
+  
 
   return (
     <div>

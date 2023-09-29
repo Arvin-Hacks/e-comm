@@ -37,7 +37,7 @@ const Addproduct = () => {
             })
             upload_result = await upload_result.json()
             if (upload_result.success) {
-                let result = await fetch('http://localhost:5000/addproduct', {
+                let result = await fetch('http://localhost:5000/product/addproduct', {
                     method: 'post',
                     body: JSON.stringify(product),
                     headers: {

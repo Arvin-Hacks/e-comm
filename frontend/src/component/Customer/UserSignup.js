@@ -17,7 +17,7 @@ const UserSignup = () => {
     const signup = async () => {
         if (user.email && user.password && user.name) {
             console.log('login data', user)
-            let result = await fetch('http://localhost:5000/usersignup', {
+            let result = await fetch('http://localhost:5000/user/usersignup', {
                 method: "post",
                 body: JSON.stringify(user),
                 headers: {
