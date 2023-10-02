@@ -1,3 +1,4 @@
+const { sendAdminNotification } = require('../middileware/sendemail');
 const Product = require('../models/Product')
 
 
@@ -35,6 +36,16 @@ module.exports.UpdateProduct = async (req, resp) => {
         resp.send({ result: "Something went wrong", success: false })
     }
 }
+module.exports.UpdateProductQTY = async (req, resp) => {
+    let qty=parseInt(req.params.qty)
+    // resp.send({result:'update :'+typeof(qty)})
+    const result = await Product.updateOne({ _id: req.params.id }, {$inc: { quantity: -qty } })
+    if (result) {
+        resp.send({ result: result, success: true })
+    } else {
+        resp.send({ result: "Something went wrong", success: false })
+    }
+}
 
 module.exports.DeleteProduct = async (req, resp) => {
     const result = await Product.deleteOne({ _id: req.params.id })
@@ -62,8 +73,8 @@ module.exports.FilterProduct = async (req, resp) => {
                     ]
             })
             resp.send({ result: data, success: true })
-        }else if(filter==="price"){
-            let data = await Product.find().sort({price:parseInt(key)})
+        } else if (filter === "price") {
+            let data = await Product.find().sort({ price: parseInt(key) })
             resp.send({ result: data, success: true })
         }
     } catch (error) {
@@ -71,3 +82,30 @@ module.exports.FilterProduct = async (req, resp) => {
     }
 }
 
+
+module.exports.CheckproductQuantity = async (req, resp) => {
+    try {
+        const products = await Product.find()
+        let below_qunatity = []
+        for (const product of products) {
+            const { title, quantity } = product
+            if (quantity < 10) {
+                // await sendAdminNotification(title, quantity)
+                // sendAdminNotification(title,quantity)
+                below_qunatity = [...below_qunatity, product]
+                // resp.send({result:}
+            }
+        }
+        below_qunatity.length > 0 ?
+            resp.send({ result: below_qunatity, success: true })
+            :
+            resp.send({ result: 'Quantity in Control', success: false })
+
+    } catch (error) {
+        console.error('Error checking product quantities:', error);
+    }
+}
+
+setInterval(() => {
+    this.CheckproductQuantity()
+}, 300000)

@@ -8,9 +8,10 @@ const Admin = require('./models/Admin')
 const Product_path = '../frontend/public/product_images'
 app.use(express.json(), cors())
 
-const userRouter=require('./route/user')
-const productRouter=require('./route/product')
-const cartRouter=require('./route/cart')
+const userRouter = require('./route/user')
+const productRouter = require('./route/product')
+const cartRouter = require('./route/cart')
+const { sendAdminNotification } = require('./middileware/sendemail')
 
 const fileupload = multer({
     storage: multer.diskStorage({
@@ -35,13 +36,75 @@ app.post('/upload', fileupload.single('product'), async (req, resp) => {
 })
 
 
-/// User Routes
+app.use('/user', userRouter)
 
-app.use('/user',userRouter)
+app.use('/product', productRouter)
 
-app.use('/product',productRouter)
+app.use('/cart', cartRouter)
 
-app.use('/cart',cartRouter)
+
+
+app.post('/sendemail', async (req, resp) => {
+    let title = req.body.title
+    let qty = req.body.quantity
+    let result = await sendAdminNotification(title, qty)
+    if (result) {
+        console.log('test', result)
+        resp.send({ result: "email sent" })
+    } else {
+        resp.send({ result: "error sending email" })
+    }
+})
+
+app.post('/adminlogin', async (req, resp) => {
+    console.log('body', req.body)
+    let result = await Admin.find({ $and: [{ email: req.body.email }, { password: req.body.password }] }).select('email name -_id')
+    console.log(result)
+    if (result.length > 0) {
+        resp.send({ result: result[0], success: true })
+    } else {
+        resp.send({ result: 'Admin Not Found', success: false })
+    }
+})
+
+app.listen(5000, () => {
+    console.log("Server is running on port 5000")
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // app.get('/state',async(req,resp)=>{
 
@@ -55,9 +118,9 @@ app.use('/cart',cartRouter)
 
 
 // app.post('/admin', async (req, resp) => {
-    //     // const data = new Admin({ name: "John", email: "john@test.com", password: "john@123" })
-    //     // const result = await data.save()
-    //     // if(result){
+//     // const data = new Admin({ name: "John", email: "john@test.com", password: "john@123" })
+//     // const result = await data.save()
+//     // if(result){
 //     //     resp.send(result)
 
 //     // }else{
@@ -65,16 +128,7 @@ app.use('/cart',cartRouter)
 //     // }
 // })
 
-app.post('/adminlogin', async (req, resp) => {
-    console.log('body', req.body)
-    let result = await Admin.find({ $and: [{ email: req.body.email }, { password: req.body.password }] }).select('email name -_id')
-    console.log(result)
-    if (result.length > 0) {
-        resp.send({ result: result[0], success: true })
-    } else {
-        resp.send({ result: 'Admin Not Found', success: false })
-    }
-})
+
 
 // app.use('/user_login',require("./route/user"))
 
@@ -191,9 +245,7 @@ app.post('/adminlogin', async (req, resp) => {
 //     }
 // })
 
-app.listen(5000, () => {
-    console.log("Server is running on port 5000")
-})
+
 
 // app.listen(5000, () => {
 //     console.log("Server is running on port 5000")

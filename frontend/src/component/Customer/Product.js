@@ -103,8 +103,8 @@ const Product = () => {
                             <Form.Select aria-label="Default select example" onChange={(e) => filterproduct('price', e.target.value)}>
                                 <option style={{ backgroundColor: "#8175c9" }}>Filter Price</option>
                                 <option value="">All</option>
-                                <option value="1">High to Low</option>
-                                <option value="-1">Low to High</option>
+                                <option value="-1">High to Low</option>
+                                <option value="1">Low to High</option>
                             </Form.Select>
 
                         </Col>

@@ -1,21 +1,59 @@
 const User = require('../models/user')
+const bcrypt = require('bcrypt')
 
-module.exports.Userlogin = async (req, resp) => {
+
+async function hashPassword(plainPassword) {
     try {
-        // console.log('body', req.body)
-        let result = await User.find({ $and: [{ email: req.body.email }, { password: req.body.password }] }).select('name email _id')
-        console.log(result)
-        if (result.length > 0) {
-            resp.send({ result: result[0], success: true })
-        }else{
+        const saltRounds = 10;
+        const hash = await new Promise((resolve, reject) => {
+            bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(hashedPassword);
+                }
+            });
+        });
+        return hash;
+    } catch (error) {
+        throw error;
+    }
+}
+async function comparePassword(loginPassword, hashedPassword) {
+    try {
+        const match = await bcrypt.compare(loginPassword, hashedPassword);
+        return match;
+    } catch (error) {
+        throw error;
+    }
+}
+module.exports.Userlogin = async (req, resp) => {
+    
+    try {
+        // resp.send({result:a})
+        console.log('body', req.body)
+        let result = await User.findOne({ email: req.body.email })
+        // resp.send(result)
+        if (result) {
+        let pass= await comparePassword(req.body.password,result.password)
+            if(pass){
+                resp.send({ result: result, success: true })
+            }else{
+            resp.send({ result: 'Invalid password', success: false })
+            }
+        } else {
             resp.send({ result: 'User Not Found', success: false })
         }
     } catch (error) {
-        resp.send({ result: 'User Not Found', success: false })
+        resp.send({ result: 'User Not Foundd', success: false })
     }
 }
 
 module.exports.Usersignup = async (req, resp) => {
+    let pass = req.body.password
+    req.body.password = await hashPassword(req.body.password)
+
+    // resp.send({'testing':req.body})
     const data = new User(req.body)
     const result = await data.save()
     if (result) {

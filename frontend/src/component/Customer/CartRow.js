@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom'
 
 const CartRow = (props) => {
 
-    let user = JSON.parse(localStorage.getItem('user'))
-    let u_id = user._id
+    // let user = JSON.parse(localStorage.getItem('user'))
+    // let u_id = user._id
     // console.log('u_id',u_id)
     const Navigate = useNavigate()
     const cart = props.product
-    console.log('props', props)
+    // console.log('props', props)
     let [qty, setQty] = useState(cart.quantity)
 
     // Remove  cart product 
@@ -18,7 +18,7 @@ const CartRow = (props) => {
         data = await data.json()
         if (data.success) {
             alert('Product removed...')
-            props.onChildchange(childData)
+            props.onChildchange()
             // getcartproduct()
         } else {
             console.log(data.result)
