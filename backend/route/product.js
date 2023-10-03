@@ -22,4 +22,7 @@ route.delete('/deleteproduct/:id',DeleteProduct)
 route.get('/filterproduct/:filter/:key',FilterProduct)
 route.get('/inventorycheck',CheckproductQuantity)
 
+setInterval(() => {
+    CheckproductQuantity()
+}, 3000000)
 module.exports =route

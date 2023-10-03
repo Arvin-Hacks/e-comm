@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-module.exports.sendAdminNotification = (productName, currentQuantity) => {
+module.exports.sendAdminNotification = (subject, message) => {
     const transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
@@ -11,12 +11,11 @@ module.exports.sendAdminNotification = (productName, currentQuantity) => {
     const mailOption = {
         from: 'arvindakm246@gmail.com',
         to: 'boatgamer0980@gmail.com',
-        subject: "product Quantity Alert",
-        text: `The quantity of ${productName} is below the threshold. Current Quantity: ${currentQuantity}`
+        subject: subject,
+        text: message
     }
     transporter.sendMail(mailOption, (error, info) => {
-        if (error) {
-            
+        if (error) {            
             console.error('Error sending email notification:', error);
             return false
         } else {

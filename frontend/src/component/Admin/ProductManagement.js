@@ -2,9 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { BiEdit } from 'react-icons/bi'
 import {BsTrash3 } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
+import ReactPaginate from 'react-paginate'
+
 const ProductManagement = () => {
     const [data, setData] = useState([])
+    // pagination states
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 7;
+    const pageCount = Math.ceil(data.length / itemsPerPage);
+    const offset = currentPage * itemsPerPage;
+    const currentData = data.slice(offset, offset + itemsPerPage);
+    const startIndex = currentPage * itemsPerPage + 1;
+
+
     const Navigate=useNavigate()
+
     useEffect(() => {
         getproduct()
     }, [])
@@ -13,7 +25,7 @@ const ProductManagement = () => {
         let result = await fetch('http://localhost:5000/product/getproducts')
         result = await result.json()
         if (result.result.length > 0) {
-            console.log('manage',result.result)
+            // console.log('manage',result.result)
             setData(result.result)
         }
     }
@@ -21,6 +33,9 @@ const ProductManagement = () => {
     // Update a specific product based on id
     const update=(id)=>{
         Navigate(`/dashboard/updateproduct/${id}`)
+    }
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected)
     }
     return (
         <div className=''>
@@ -39,9 +54,9 @@ const ProductManagement = () => {
                             </tr>
                         </thead>
                         <tbody className="table-group-divider" >
-                            {data.length > 0 ? data.map((item,index) => 
-                                <tr key={index+1}>
-                                    <th scope="row">{index+1}</th>
+                            {currentData.length > 0 ? currentData.map((item,index) => 
+                                <tr key={item._id}>
+                                    <th scope="row">{startIndex+index}</th>
                                     <td>{item.title}</td>
                                     <td>{item.category}</td>
                                     <td>{item.price}</td>
@@ -69,6 +84,24 @@ const ProductManagement = () => {
                         </tbody>
 
                     </table>
+                </div>
+                <div>
+                    <ReactPaginate
+                        previousLabel={'Previous'}
+                        nextLabel={'Next'}
+                        breakLabel={'...'}
+                        // breakClassName={'break-me'}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageChange}
+                        containerClassName={'container'}
+                        previousLinkClassName={'page'}
+                        breakClassName={'page'}
+                        nextLinkClassName={'page'}
+                        pageClassName={'page'}
+                        activeClassName={'active'}
+                    />
                 </div>
             </div>
         </div>

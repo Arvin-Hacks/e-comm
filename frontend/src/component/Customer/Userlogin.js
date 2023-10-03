@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import { Link, useNavigate } from 'react-router-dom';
 
 const UserLogin = () => {
+    // console.log('envvvv',process.env.SERVER_URL)
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -83,11 +84,11 @@ const UserLogin = () => {
                                 value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
-                        <Col sm={{ span: 10, offset: 2 }}>
-                            <Form.Check label="Remember me" />
-                        </Col>
-                    </Form.Group>
+                        {/* <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
+                            <Col sm={{ span: 10, offset: 2 }}>
+                                <Form.Check label="Remember me" />
+                            </Col>
+                        </Form.Group> */}
 
                     <Form.Group as={Row} className="mb-3">
                         <Col sm={{ span: 6, offset: 2 }}>

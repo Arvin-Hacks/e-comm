@@ -1,6 +1,8 @@
 const { sendAdminNotification } = require('../middileware/sendemail');
 const Product = require('../models/Product')
-
+const Notification = require('../models/Notification')
+// const WebSocket=require('ws')
+// const admin=new WebSocket('ws://localhost:5000')
 
 module.exports.getAllProducts = async (req, resp) => {
     const result = await Product.find()
@@ -37,9 +39,9 @@ module.exports.UpdateProduct = async (req, resp) => {
     }
 }
 module.exports.UpdateProductQTY = async (req, resp) => {
-    let qty=parseInt(req.params.qty)
+    let qty = parseInt(req.params.qty)
     // resp.send({result:'update :'+typeof(qty)})
-    const result = await Product.updateOne({ _id: req.params.id }, {$inc: { quantity: -qty } })
+    const result = await Product.updateOne({ _id: req.params.id }, { $inc: { quantity: -qty } })
     if (result) {
         resp.send({ result: result, success: true })
     } else {
@@ -93,7 +95,12 @@ module.exports.CheckproductQuantity = async (req, resp) => {
                 // await sendAdminNotification(title, quantity)
                 // sendAdminNotification(title,quantity)
                 below_qunatity = [...below_qunatity, product]
-                // resp.send({result:}
+                let temp = new Notification({
+                    message: `The quantity of ${title} is below the threshold. Current Quantity: ${quantity}`,
+                    subject: "Product"
+                })
+                let res = await temp.save()
+                console.log('res', res)
             }
         }
         below_qunatity.length > 0 ?
@@ -106,6 +113,4 @@ module.exports.CheckproductQuantity = async (req, resp) => {
     }
 }
 
-setInterval(() => {
-    this.CheckproductQuantity()
-}, 300000)
+

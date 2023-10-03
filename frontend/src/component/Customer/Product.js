@@ -15,6 +15,7 @@ const Product = () => {
     let u_id = user ? user._id : ''
 
     const [data, setData] = useState([])
+    const [searchkey, setSearchkey] = useState('')
     const [CartId, setCartid] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 8;
@@ -26,8 +27,8 @@ const Product = () => {
     const Navigate = useNavigate()
 
     useEffect(() => {
-        getproduct()
-        getCartId()
+        getproduct();
+       user ? getCartId():<></>
     }, [])
 
     // Get Cart deatils to show dynamic add to cart button
@@ -112,11 +113,9 @@ const Product = () => {
 
                         </Col>
                         <Col xs="auto">
-                            <InputGroup style={{ zIndex: "-1" }}>
-                                <Form.Control
-                                    placeholder="Search..."
-                                    aria-label="search"
-                                    aria-describedby="basic-addon1"
+                            <InputGroup style={{ zIndex: "0" }}>
+                                <Form.Control                                    
+                                    placeholder="Search..."                                    
                                     onChange={(e) => filterproduct('search', e.target.value)}
                                 />
                                 <InputGroup.Text style={{ backgroundColor: "#483d8b", color: "white" }}>Search</InputGroup.Text>
@@ -157,46 +156,44 @@ const Product = () => {
                     <>
                         <div className='p_card'>
                             <Card style={{ padding: '20px' }} >
-                                <Card.Img variant="top" src={''} width={277} height={193} />
+                                <Card.Img variant="top" src={'./no_product.png'} width={277} height={193} />
                                 <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
+                                    <Card.Title>No Product Match</Card.Title>
                                     <Card.Text>
-                                        bulk of the card's content.
+                                        Search something else
                                     </Card.Text>
-                                    <Card.Text>Price: $399</Card.Text>
+                                    {/* <Card.Text>Price: $399</Card.Text> */}
 
                                 </Card.Body>
-                                <Card.Body>
-                                    <button>Add to Cart</button>
-                                </Card.Body>
+                                
                             </Card>
                         </div>
                     </>
                 }
-                
+
 
 
 
 
             </div>
             <div>
-                    <ReactPaginate
-                        previousLabel={'Previous'}
-                        nextLabel={'Next'}
-                        breakLabel={'...'}
-                        // breakClassName={'break-me'}
-                        pageCount={pageCount}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageChange}
-                        containerClassName={'container'}
-                        previousLinkClassName={'page'}
-                        breakClassName={'page'}
-                        nextLinkClassName={'page'}
-                        pageClassName={'page'}
-                        activeClassName={'active'}
-                    />
-                </div>
+                <ReactPaginate
+                    previousLabel={'Previous'}
+                    nextLabel={'Next'}
+                    breakLabel={'...'}
+                    // breakClassName={'break-me'}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageChange}
+                    containerClassName={'container'}
+                    previousLinkClassName={'page'}
+                    breakClassName={'page'}
+                    nextLinkClassName={'page'}
+                    pageClassName={'page'}
+                    activeClassName={'active'}
+                />
+            </div>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { additem } from '../../redux/cartSlice'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import CartRow from './CartRow';
 
@@ -10,10 +10,8 @@ const Cart = () => {
     let user = JSON.parse(localStorage.getItem('user'))
     let u_id = user ? user._id : ''
     const dispatch = useDispatch()
-    useEffect(() => {
-        getcartproduct()
-    }, [])
-
+    const Navigate=useNavigate()
+    
     const [data, setData] = useState([])
     const C_Total = data.map((a) => a.product[0].price * a.quantity).reduce((prev, curr) => prev + curr, 0)
 
@@ -23,27 +21,34 @@ const Cart = () => {
         let data = await fetch(`http://localhost:5000/cart/getcartproducts/${u_id}`)
         data = await data.json()
         if (data.result.length > 0) {
-            console.log('cart data', data.result)
+            // console.log('cart data', data.result)
             setData(data.result)
             dispatch(additem(data.result))
         } else {
             console.log(data.result)
-
+            // window.location.reload()
         }
+        // window.location.reload()
+        
     }
     const managequantiy = async () => {
         data.map(async (product) => {
             let result = await fetch(`http://localhost:5000/product/updateproductqty/${product.product_id}/${product.quantity}`, { method: "put" })
             result = await result.json()
             if (result) {
-                console.warn('update Result--', result)
+                // console.warn('update Result--', result)
                 let cartstarus = await fetch(`http://localhost:5000/cart/deletecart/${product._id}`, { method: "delete" })
                 cartstarus = await cartstarus.json()
                 console.warn('update Result--', result,cartstarus)
-                getcartproduct()
+                alert('Order placed Successfully')
+                Navigate('/')
             }
         })
     }
+
+    useEffect(() => {
+        getcartproduct()
+    }, [])
 
     // Go to Product Details
 

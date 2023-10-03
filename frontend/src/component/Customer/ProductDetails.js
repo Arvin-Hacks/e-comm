@@ -8,11 +8,13 @@ import { useParams } from 'react-router-dom';
 const ProductDetails = (props) => {
 
     let user = JSON.parse(localStorage.getItem('user'))
-    let u_id = user._id
+    let u_id = user ? user._id : ''
 
     const param=useParams()
     const [product,setProduct]=useState([])
     const [CartId,setCartid]=useState([])
+    
+
     console.log('props',param.id)
     useEffect(()=>{
         getproductdata()

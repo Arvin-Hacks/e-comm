@@ -15,7 +15,7 @@ const AdminLogin = () => {
 
     const login = async () => {
         if (admin.email && admin.password) {
-            console.log('login data', admin)
+            // console.log('login data', admin)
             let result = await fetch('http://localhost:5000/adminlogin', {
                 method: "post",
                 body: JSON.stringify(admin),
