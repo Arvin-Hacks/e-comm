@@ -16,8 +16,8 @@ import UserLogin from './component/Customer/Userlogin';
 import UserPrivate from './component/Customer/UserPrivate';
 import UpdateProduct from './component/Admin/Updateproduct';
 import Cart from './component/Customer/Cart';
-function App() {
-  
+import EditMovieForm from './component/Customer/Movie';
+function App() {  
 
   return (
     <div>
@@ -27,6 +27,7 @@ function App() {
           <Route path='/adminlogin' element={<AdminLogin />}></Route>
           <Route path='/usersignup' element={<UserSignup />}></Route>
           <Route path='/userlogin' element={<UserLogin />}></Route>
+          <Route path='/movie' element={<EditMovieForm />}></Route>
           <Route path="*" element={<PageNotFound />} />
           
           <Route element={<UserPrivate />}>

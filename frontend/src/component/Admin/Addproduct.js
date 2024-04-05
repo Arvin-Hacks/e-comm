@@ -10,6 +10,7 @@ import 'react-quill/dist/quill.snow.css';
 
 
 const Addproduct = () => {
+    console.warn('add product')
     const [selectedfile, setSelected] = useState(false)
     const [product, setProduct] = useState({
         title: '',

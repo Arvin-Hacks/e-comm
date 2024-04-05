@@ -19,7 +19,7 @@ const Nav = () => {
   let auth = JSON.parse(localStorage.getItem('user'))
   let admin_auth = JSON.parse(localStorage.getItem('admin'))
 
-  const cartItems = useSelector(state => state.cart.items)
+  const cartItems = useSelector(state => state?.cart?.items)
   const dispatch = useDispatch()
   // Logout Function 
   const logout = () => {

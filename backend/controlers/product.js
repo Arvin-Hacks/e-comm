@@ -9,6 +9,7 @@ module.exports.getAllProducts = async (req, resp) => {
     resp.send({ result: result, success: true })
 }
 module.exports.GetProductDetails = async (req, resp) => {
+    
     const data = await Product.findById(req.params.id)
     if (data) {
         resp.send({ result: data, success: true })
@@ -83,6 +84,7 @@ module.exports.FilterProduct = async (req, resp) => {
         resp.send({ result: 'no data', success: false })
     }
 }
+
 
 
 module.exports.CheckproductQuantity = async (req, resp) => {

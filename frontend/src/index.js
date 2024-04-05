@@ -5,11 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store'
-// import dotenv from 'dotenv';
-// // require('./.dotenv')
-// dotenv.config()
 
-// console.log('ev...',process.env.REACT_APP_SERVER_URL)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

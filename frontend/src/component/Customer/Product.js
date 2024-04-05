@@ -15,7 +15,6 @@ const Product = () => {
     let u_id = user ? user._id : ''
 
     const [data, setData] = useState([])
-    const [searchkey, setSearchkey] = useState('')
     const [CartId, setCartid] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 8;
@@ -28,7 +27,7 @@ const Product = () => {
 
     useEffect(() => {
         getproduct();
-       user ? getCartId():<></>
+        user ? getCartId() : <></>
     }, [])
 
     // Get Cart deatils to show dynamic add to cart button
@@ -41,6 +40,7 @@ const Product = () => {
             getproduct()
         }
     }
+
     // Get All Products
     const getproduct = async () => {
         let data = await fetch('http://localhost:5000/product/getproducts')
@@ -49,6 +49,7 @@ const Product = () => {
             setData(data.result)
         }
     }
+
     // Add Product to cart
     const addtocart = async (p_id) => {
         let result = await fetch(`http://localhost:5000/cart/addtocart/${p_id}/${u_id}`, { method: "post" })
@@ -61,6 +62,7 @@ const Product = () => {
         }
     }
 
+    // Filter Product ....
     const filterproduct = async (filter, key) => {
         if (key !== '') {
             let data = await fetch(`http://localhost:5000/product/filterproduct/${filter}/${key}`)
@@ -75,6 +77,7 @@ const Product = () => {
             getproduct()
         }
     }
+
     // Get Product Details
     const productdetail = (id) => {
         Navigate(`/productdetail/${id}`)
@@ -82,6 +85,7 @@ const Product = () => {
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected)
     }
+
     return (
         <div style={{ marginTop: "60px" }}>
             <div className='product-tools' >
@@ -114,13 +118,11 @@ const Product = () => {
                         </Col>
                         <Col xs="auto">
                             <InputGroup style={{ zIndex: "0" }}>
-                                <Form.Control                                    
-                                    placeholder="Search..."                                    
-                                    onChange={(e) => filterproduct('search', e.target.value)}
-                                />
+                                <Form.Control
+                                    placeholder="Search..."
+                                    onChange={(e) => filterproduct('search', e.target.value)} />
                                 <InputGroup.Text style={{ backgroundColor: "#483d8b", color: "white" }}>Search</InputGroup.Text>
                             </InputGroup>
-
                         </Col>
                     </Row>
                 </Form>
@@ -133,10 +135,6 @@ const Product = () => {
                             <Card.Img variant="top" src={`./product_images/${item.image}`} width={277} height={193} onClick={() => productdetail(item._id)} />
                             <Card.Body style={{ height: "50px" }}>
                                 <Card.Title>{item.title}</Card.Title>
-                                {/* <Card.Text>
-                           Category- {item.category}
-                        </Card.Text> */}
-
                             </Card.Body>
                             <Card.Body>
                                 <Card.Text className='price'>₹ {item.price}</Card.Text>
@@ -145,12 +143,9 @@ const Product = () => {
                                     :
                                     <button onClick={() => addtocart(item._id)} className='btn-cart1'>ADD TO CART</button>
                                 }
-
-
                             </Card.Body>
                         </Card>
                     </div>
-
                 )
                     :
                     <>
@@ -165,16 +160,11 @@ const Product = () => {
                                     {/* <Card.Text>Price: $399</Card.Text> */}
 
                                 </Card.Body>
-                                
+
                             </Card>
                         </div>
                     </>
                 }
-
-
-
-
-
             </div>
             <div>
                 <ReactPaginate

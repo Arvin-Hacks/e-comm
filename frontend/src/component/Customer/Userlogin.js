@@ -44,7 +44,6 @@ const UserLogin = () => {
             console.log('error')
             setTimeout(() => {setErr(false)}, 3000);
         }
-
     }
     return (
         <div className='admin-login'>

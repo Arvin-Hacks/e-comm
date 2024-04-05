@@ -1,7 +1,6 @@
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
-
-
+const {sendAdminmessage}=require('../socketmanager')
 async function hashPassword(plainPassword) {
     try {
         const saltRounds = 10;
@@ -27,6 +26,7 @@ async function comparePassword(loginPassword, hashedPassword) {
         throw error;
     }
 }
+
 module.exports.Userlogin = async (req, resp) => {
     
     try {
@@ -37,6 +37,7 @@ module.exports.Userlogin = async (req, resp) => {
         if (result) {
         let pass= await comparePassword(req.body.password,result.password)
             if(pass){
+                sendAdminmessage(`Welcome back admin`)
                 resp.send({ result: result, success: true })
             }else{
             resp.send({ result: 'Invalid password', success: false })

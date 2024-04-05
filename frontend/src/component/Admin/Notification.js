@@ -1,7 +1,19 @@
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import Toast from 'react-bootstrap/Toast';
-
+import io from 'socket.io-client'
 const ProductNotification = ({ message, subject,id,onChildcahnge}) => {
+
+    useEffect(()=>{
+        const socket=io('http:localhost:5000')
+        socket.on('adminmsg',(message)=>{
+            console.warn('Admin Message',message)
+        })
+        return () => {
+            // Disconnect from the WebSocket server when the component unmounts
+            socket.disconnect();
+          };
+    },[])
+
 
     const [showA, setShowA] = useState(true)
     // console.warn('key',id)

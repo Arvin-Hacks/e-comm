@@ -4,8 +4,8 @@ const server = require('http').createServer(app)
 
 const cors = require('cors')
 const multer = require('multer')
-const WebSocket=require('ws')
-const wss=new WebSocket.Server({server})
+const initializeSocket = require('./websocket')
+const io = initializeSocket(server)
 const Admin = require('./models/Admin')
 const Product_path = '../frontend/public/product_images'
 app.use(express.json(), cors())
@@ -13,8 +13,11 @@ app.use(express.json(), cors())
 const userRouter = require('./route/user')
 const productRouter = require('./route/product')
 const cartRouter = require('./route/cart')
-const notifyRouter=require('./route/notification')
+const notifyRouter = require('./route/notification')
 const { sendAdminNotification } = require('./middileware/sendemail')
+const { resolve } = require('path')
+const Product = require('./models/Product')
+
 
 const fileupload = multer({
     storage: multer.diskStorage({
@@ -61,17 +64,7 @@ app.post('/sendemail', async (req, resp) => {
     }
 })
 
-wss.on('connection',(ws)=>{
-    console.log("client is Connected")
-    ws.send('welcome Admin')
 
-    ws.on('massage',(message)=>{
-        console.log(`Received : ${message}`)
-    })
-})
-
-
-// sendMessage('hello')
 
 app.post('/adminlogin', async (req, resp) => {
     console.log('body', req.body)
@@ -84,7 +77,7 @@ app.post('/adminlogin', async (req, resp) => {
     }
 })
 
-app.get('/getnotification',async()=>{
+app.get('/getnotification', async () => {
 })
 
 server.listen(5000, () => {
@@ -95,7 +88,51 @@ server.listen(5000, () => {
 
 
 
+const getuserinfo = () => undefined
+const tryCatch = (controller) => async (req, res, next) => {
+    try {
+        await controller(req, res)
+    } catch (error) {
+        next(error)
+    }
+}
+
+app.get('/testing', tryCatch(async (req, res, next) => {
+    const user = getuserinfo()
+    if (!user) {
+        throw new Error('user not found')
+    }
+}
+))
+
+app.get('/testing2', tryCatch(async (req, res, next) => {
+    const user = getuserinfo()
+    if (!user) {
+        throw new Error('user not found')
+    }
+}
+))
 
 
 
+const errorHandler = (error, req, res, nex) => {
+    return res.status(400).json(error.message)
+}
 
+app.use(errorHandler)
+
+
+
+Product.f
+const data = { name: 'a', email: '' }
+
+
+const temp = {
+    name: data?.name ?? 'test',
+    email: data?.email ?? 'test'
+}
+
+const temp2 = data ? { ...data } : { name: '', email }
+
+console.log('first', temp)
+console.log('first', temp2)
