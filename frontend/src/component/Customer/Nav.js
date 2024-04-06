@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { additem } from '../../redux/cartSlice'
+// import { additem } from '../../redux/cartSlice'
 import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BsCartDashFill } from 'react-icons/bs'
@@ -8,6 +8,8 @@ import { IoNotificationsCircleOutline } from 'react-icons/io5'
 import Badge from 'react-bootstrap/Badge';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ProductNotification from '../Admin/Notification';
+import { addItem } from '../../redux/cartSlice';
+import store from '../../redux/store';
 
 const Nav = () => {
   // console.log('props',productName)
@@ -21,6 +23,11 @@ const Nav = () => {
 
   const cartItems = useSelector(state => state?.cart?.items)
   const dispatch = useDispatch()
+
+  const items = useSelector(state => state.cart.items);
+
+  console.log('items',items)
+
   // Logout Function 
   const logout = () => {
     localStorage.clear()
@@ -28,12 +35,12 @@ const Nav = () => {
   }
   // Get Admin Notification
   const getnotificationdata = async () => {
-    let data = await fetch('http://localhost:5000/notify/getnotifications')
+    let data = await fetch('http://localhost:5000/getnotifications')
     data = await data.json()
-    if (data.success) {
-      console.log('data', data.result)
-      setNotificationData(data.result)
-      dispatch(additem(data.result))
+    if (data?.success) {
+      console.log('data', data?.result)
+      setNotificationData(data?.result)
+      dispatch(addItem(data?.result))
       // window.location.reload()
     } else {
       console.log('No new notification ')
@@ -60,12 +67,13 @@ const Nav = () => {
                 <li><Link to='/dashboard/dashboarddetail'>Dashboard</Link></li>
                 <li><Link to='/'>Product</Link></li>
                 <li onClick={() => setShow(true)}><IoNotificationsCircleOutline size={30} />
-                  <Badge bg="danger" >{cartItems.length}</Badge></li>
+                  <Badge bg="danger" >{cartItems?.length}</Badge></li>
                 <li><Link to='/userlogin' onClick={logout}>Logout</Link></li>
               </>
                 : <>
                   <li><Link to='/'>Product</Link></li>
-                  <li><Link to='/cart' style={{ fontSize: "20px" }}><BsCartDashFill /><Badge bg="danger" >{cartItems.length}</Badge></Link></li>
+                  <li><Link to='/cart' > Cart &nbsp;<BsCartDashFill />{/* <Badge bg="danger" >{cartItems?.length}</Badge> */}</Link></li>
+                  {/* <li><Link to='/cart' style={{ fontSize: "20px" }}><BsCartDashFill /><Badge bg="danger" >{cartItems?.length}</Badge></Link></li> */}
                   <li><Link to='/userlogin' onClick={logout}>Logout</Link></li>
                 </>
               : <>
@@ -77,10 +85,10 @@ const Nav = () => {
       </nav>
       <Offcanvas show={show} onHide={() => setShow(false)} placement='end'>
         <Offcanvas.Header style={{ borderBottom: "2px solid #aeabab" }} closeButton>
-          <Offcanvas.Title key={'0'} >Notificaion</Offcanvas.Title>
+          <Offcanvas.Title key={'01'} >Notificaion</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body style={{ borderBottom: "1px solid #aeabab" }}>
-          {notificationData.length > 0 ? notificationData.map((product, index) =>
+          {notificationData.length > 0 ? notificationData?.map((product, index) =>
             <><ProductNotification
               message={product.message}
               subject={product.subject}

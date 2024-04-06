@@ -41,6 +41,18 @@ const ProductDetails = (props) => {
             // getproductdata()
         }
     }
+
+    // Add Product to cart
+    const addtocart = async (p_id) => {
+        let result = await fetch(`http://localhost:5000/cart/addtocart/${p_id}/${u_id}`, { method: "post" })
+        result = await result.json()
+        if (result.success) {
+            // getproduct()
+            getCartId()
+        } else {
+            alert('error')
+        }
+    }
     return (
         <div>
             <h1>Product Details</h1>

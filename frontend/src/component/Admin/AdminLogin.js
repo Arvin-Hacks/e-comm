@@ -24,10 +24,12 @@ const AdminLogin = () => {
                 }
             })
             result = await result.json()
-            if (result.success) {
+            console.log('sdfsfs',result)
+            if (result?.success) {
                 console.log('result', result.result)
                 localStorage.setItem('admin',JSON.stringify(result.result))
                 localStorage.removeItem('user')
+                // window.location.reload()
                 Navigate('/dashboard')
             }
             else { 

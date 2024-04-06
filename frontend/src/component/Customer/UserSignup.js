@@ -28,6 +28,8 @@ const UserSignup = () => {
             if (result.success) {
                 console.log('result', result.result)
                 localStorage.setItem('user',JSON.stringify(result.result))
+                window.location.reload()
+
                 Navigate('/')
             }
             else { 

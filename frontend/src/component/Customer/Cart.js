@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { additem } from '../../redux/cartSlice'
 import { Link, useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import CartRow from './CartRow';
+import { addItem } from '../../redux/cartSlice';
 
 const Cart = () => {
 
@@ -23,7 +23,7 @@ const Cart = () => {
         if (data.result.length > 0) {
             // console.log('cart data', data.result)
             setData(data.result)
-            dispatch(additem(data.result))
+            dispatch(addItem(data.result))
         } else {
             console.log(data.result)
             // window.location.reload()

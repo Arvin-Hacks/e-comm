@@ -28,6 +28,8 @@ const Product = () => {
     useEffect(() => {
         getproduct();
         user ? getCartId() : <></>
+        // window.location.reload()
+
     }, [])
 
     // Get Cart deatils to show dynamic add to cart button
@@ -35,8 +37,8 @@ const Product = () => {
         let result = await fetch(`http://localhost:5000/cart/getcartproducts/${u_id}`)
         result = await result.json()
         if (result.success) {
-            dispatch(additem(result.result))
-            setCartid(result.result.map((item) => item.product_id))
+            // dispatch(additem(result?.result))
+            setCartid(result?.result?.map((item) => item?.product_id))
             getproduct()
         }
     }

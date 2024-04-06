@@ -1,17 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const CartRow = (props) => {
 
-    // let user = JSON.parse(localStorage.getItem('user'))
-    // let u_id = user._id
+    let user = JSON.parse(localStorage.getItem('user'))
+    let u_id = user._id
     // console.log('u_id',u_id)
     const Navigate = useNavigate()
     const cart = props.product
     // console.log('props', props)
     let [qty, setQty] = useState(cart.quantity)
 
+    const dispatch=useDispatch()
+
+    useEffect(()=>{
+        getcartproduct().then((res)=>console.log('re',res))
+        
+        
+    },[])
+    
+    const getcartproduct = async () => {
+        let data = await fetch(`http://localhost:5000/cart/getcartproducts/${u_id}`)
+        data = await data.json()
+        if (data.result.length > 0) {
+            console.log('cart data', data.result)
+             return data.result
+            // dispatch(addItem(data.result))
+        } else {
+            console.log(data.result)
+            return []
+            // window.location.reload()
+        }
+
+        // window.location.reload()
+        
+    }
     // Remove  cart product 
     const deletecartproduct = async () => {
         let data = await fetch(`http://localhost:5000/cart/deletecart/${cart._id}`, { method: 'delete' })
@@ -19,6 +44,7 @@ const CartRow = (props) => {
         if (data.success) {
             alert('Product removed...')
             props.onChildchange()
+            
             // getcartproduct()
         } else {
             console.log(data.result)

@@ -45,7 +45,7 @@ const CustomerManagement = () => {
                                         <td>{item.email}</td>
                                         <td>
                                         <button className='btn btn-primary '>Update</button>&nbsp;
-                                        <button className='btn btn-primary'>Delete</button>
+                                        <button className='btn btn-danger'>Delete</button>
                                             </td>
                                         {/* <td>@mdo</td>
                                     <td>@mdo</td> */}

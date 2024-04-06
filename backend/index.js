@@ -17,6 +17,9 @@ const notifyRouter = require('./route/notification')
 const { sendAdminNotification } = require('./middileware/sendemail')
 const { resolve } = require('path')
 const Product = require('./models/Product')
+const Notification = require('./models/Notification')
+const Cart = require('./models/Cart')
+const user = require('./models/user')
 
 
 const fileupload = multer({
@@ -77,7 +80,33 @@ app.post('/adminlogin', async (req, resp) => {
     }
 })
 
-app.get('/getnotification', async () => {
+app.get('/getnotifications', async (req, res) => {
+
+    const response = await Notification.find()
+    if (response) {
+        return res.status(200).json({ result: response, success: true })
+    }
+
+    return res.send({ result: "error sending email", success: false })
+
+})
+
+app.get('/getallstate', async (req, res) => {
+
+    try {
+        const productCount = await Product.countDocuments()
+        const UsertCount = await user.countDocuments()
+        const CartCount = await Cart.countDocuments()
+
+        // if(productCount )
+        return res.send({ result: { productCount, UsertCount, CartCount }, success: true })
+
+
+    } catch (error) {
+        return res.send({ result: "error fetching stats", success: false })
+
+    }
+
 })
 
 server.listen(5000, () => {
@@ -88,51 +117,51 @@ server.listen(5000, () => {
 
 
 
-const getuserinfo = () => undefined
-const tryCatch = (controller) => async (req, res, next) => {
-    try {
-        await controller(req, res)
-    } catch (error) {
-        next(error)
-    }
-}
+// const getuserinfo = () => undefined
+// const tryCatch = (controller) => async (req, res, next) => {
+//     try {
+//         await controller(req, res)
+//     } catch (error) {
+//         next(error)
+//     }
+// }
 
-app.get('/testing', tryCatch(async (req, res, next) => {
-    const user = getuserinfo()
-    if (!user) {
-        throw new Error('user not found')
-    }
-}
-))
+// app.get('/testing', tryCatch(async (req, res, next) => {
+//     const user = getuserinfo()
+//     if (!user) {
+//         throw new Error('user not found')
+//     }
+// }
+// ))
 
-app.get('/testing2', tryCatch(async (req, res, next) => {
-    const user = getuserinfo()
-    if (!user) {
-        throw new Error('user not found')
-    }
-}
-))
-
-
-
-const errorHandler = (error, req, res, nex) => {
-    return res.status(400).json(error.message)
-}
-
-app.use(errorHandler)
+// app.get('/testing2', tryCatch(async (req, res, next) => {
+//     const user = getuserinfo()
+//     if (!user) {
+//         throw new Error('user not found')
+//     }
+// }
+// ))
 
 
 
-Product.f
-const data = { name: 'a', email: '' }
+// const errorHandler = (error, req, res, nex) => {
+//     return res.status(400).json(error.message)
+// }
+
+// app.use(errorHandler)
 
 
-const temp = {
-    name: data?.name ?? 'test',
-    email: data?.email ?? 'test'
-}
 
-const temp2 = data ? { ...data } : { name: '', email }
+// Product.f
+// const data = { name: 'a', email: '' }
 
-console.log('first', temp)
-console.log('first', temp2)
+
+// const temp = {
+//     name: data?.name ?? 'test',
+//     email: data?.email ?? 'test'
+// }
+
+// const temp2 = data ? { ...data } : { name: '', email }
+
+// console.log('first', temp)
+// console.log('first', temp2)

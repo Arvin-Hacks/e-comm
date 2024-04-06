@@ -16,7 +16,7 @@ const UserLogin = () => {
 
     const login = async () => {
         if (user.email && user.password) {
-            // console.log('login data', user)
+            console.log('login data', user)
             let result = await fetch('http://localhost:5000/user/userlogin', {
                 method: "post",
                 body: JSON.stringify(user),
@@ -28,8 +28,11 @@ const UserLogin = () => {
             // console.log('resulvjhjjt', result.result)
 
             if (result.success) {
-                console.log('result', result.result)
+                // console.log('result', result.result)
                 localStorage.setItem('user', JSON.stringify(result.result))
+                // window
+                // window.location.reload()
+
                 Navigate('/')
             }
             else {
